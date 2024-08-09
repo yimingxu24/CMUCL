@@ -7,7 +7,7 @@ import torch
 from random import sample
 import random
 import time
-from model import TAGAD, tokenize
+from model import CMUCL, tokenize
 from data import DataHelper
 from sklearn import preprocessing
 import dgl
@@ -30,7 +30,7 @@ def setup_seed(seed):
 def main(args):
     setup_seed(seed)
 
-    model = TAGAD(args).to(device)
+    model = CMUCL(args).to(device)
 
     Data = DataHelper(arr_edge_index, args)
 
