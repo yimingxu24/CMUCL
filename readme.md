@@ -1,58 +1,53 @@
-# Augmenting Low-Resource Text Classification with Graph-Grounded Pre-training and Prompting
-We provide the implementation of G2P2 model, which is the source code for the SIGIR 2023 paper
-"Augmenting Low-Resource Text Classification with Graph-Grounded Pre-training and Prompting". 
+# Text-Attributed Graphs Anomaly Detection via Cross-Modal and Uni-Modal Multi-scale Contrastive Learning
 
-The repository is organised as follows:
-- dataset/: the directory of data sets. Currently, it only has the dataset of Cora, if you want the *three processed Amazon datasets*, you can download and put them under this directory, the link is https://drive.google.com/drive/folders/1IzuYNIYDxr63GteBKeva-8KnAIhvqjMZ?usp=sharing. Besides, this link also contains the **4 pre-trained models**, under the directory of "pre-trained model".
-- res/: the directory of saved models.
-- bpe_simple_vocab_16e6.txt.gz: vocabulary for simple tokenization.
-- data.py, data_graph.py: for data loading utilization.
-- main_test.py, main_test_amazon.py: testing entrance for cora, testing entrance for Amazon datasets.
-- main_train.py, main_train_amazon.py: pre-training entrance for cora, pre-training entrance for Amazon datasets.
-- model.py, model_g_coop.py: model for pre-training, model for prompt tuning.
-- multitask.py, multitask_amazon.py: task generator for cora, task generator for Amazon datasets.
-- requirements.txt: the required packages.
-- simple_tokenizer: a simple tokenizer.
+<img src="https://github.com/yimingxu24/TAGAD/blob/main/pipeline.svg" width="60%">
 
+## 0. Python environment setup with Conda
 
-# For pre-train:
-On Cora dataset,
+```
+torch==1.12.1
+torch-cluster==1.6.0
+torch-geometric==2.1.0.post1
+torch-scatter==2.0.9
+torch-sparse==0.6.15
+torch-spline-conv==1.2.1
+torchaudio==0.12.1
+torchvision==0.13.1
+transformers==4.24.0
+Python==3.8.13
+```
 
-    python main_train.py 
+## 1. TAG datasets
 
-If on Amazon datasets, it should be:
+Download the datasets [here](https://drive.google.com/xxx), unzip and move it to `./data`
 
-    python main_train_amazon.py
+| Dataset     | Nodes   | Edges    | Avg. doc length | Attributes | Anomalies |
+|-------------|---------|----------|-----------------|------------|-----------|
+| Citeseer    | 3,186   | 3,432    | 153.94          | 768        | 128       |
+| Pubmed      | 19,717  | 90,368   | 256.08          | 768        | 788       |
+| History     | 41,551  | 369,252  | 228.36          | 768        | 1,662     |
+| Photo       | 48,362  | 512,933  | 150.25          | 768        | 1,934     |
+| Computers   | 87,229  | 742,792  | 93.16           | 768        | 3,490     |
+| Children    | 76,875  | 1,574,664| 209.12          | 768        | 3,076     |
+| ogbn-Arxiv  | 169,343 | 1,210,112| 179.70          | 768        | 6,774     |
+| CitationV8  | 1,106,759| 6,396,265| 148.77         | 768        | 44,270    |
 
-# For prompt tuning and testing:
-On Cora dataset,
+# 2. Training and inference:
+```
+python main_train.py --dataset Citeseer --lr 0.0002 --epoch_num 2 --gamma 0.005
 
-    python main_test.py 
+python main_train.py --dataset Pubmed --lr 2e-05 --epoch_num 2 --gamma 0.001
 
-If on Amazon datasets, it should be:
+python main_train.py --dataset History --lr 2e-05 --epoch_num 2 --gamma 0.5
 
-    python main_test_amazon.py
+python main_train.py --dataset Photo --lr 5e-05 --epoch_num 3 --gamma 0.001
 
-# For zero-shot testing:
-First, change directory to /zero-shot
+python main_train.py --dataset Computers --lr 2e-05 --epoch_num 3 --gamma 0.01
 
-On Cora dataset,
+python main_train.py --dataset Children --lr 5e-05 --epoch_num 2 --gamma 0.5
 
-    python zero-shot-cora.py 
+python main_train.py --dataset Arxiv --lr 1e-05 --epoch_num 2 --gamma 0.01
 
-If on Amazon datasets, it should be:
+python main_train.py --dataset CitationV8 --lr 2e-5 --epoch_num 2 --gamma 0.5
 
-    python zero-shot-amazon.py
-    
-    
-## Cite
-	@inproceedings{DBLP:conf/sigir/Wen023,
-	  author       = {Zhihao Wen and
-	                  Yuan Fang},
-	  title        = {Augmenting Low-Resource Text Classification with Graph-Grounded Pre-training
-	                  and Prompting},
-	  booktitle    = {Proceedings of the 46th International {ACM} {SIGIR} Conference on
-	                  Research and Development in Information Retrieval, {SIGIR} 2023, Taipei,
-	                  Taiwan, July 23-27, 2023},
-	  pages        = {506--516}
-	}
+```
