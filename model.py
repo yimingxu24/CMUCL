@@ -119,7 +119,7 @@ class GraphConvModel(torch.nn.Module):
         return x
     
 
-class TAGAD(nn.Module):
+class CMUCL(nn.Module):
     def __init__(self,
                  args
                  ):
