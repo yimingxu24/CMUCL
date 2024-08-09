@@ -32,7 +32,7 @@ Download the datasets [here](https://drive.google.com/xxx), unzip and move it to
 | ogbn-Arxiv  | 169,343 | 1,210,112| 179.70          | 768        | 6,774     |
 | CitationV8  | 1,106,759| 6,396,265| 148.77         | 768        | 44,270    |
 
-# 2. Training and inference:
+## 2. Training and inference:
 ```
 python main_train.py --dataset Citeseer --lr 0.0002 --epoch_num 2 --gamma 0.005
 
