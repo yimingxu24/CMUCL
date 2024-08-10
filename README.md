@@ -19,7 +19,7 @@ Python==3.8.13
 
 ## 1. TAG datasets
 
-Download the datasets [here](https://drive.google.com/xxx), unzip and move it to `./data`
+Download the datasets [here](https://drive.google.com/drive/folders/1Suws6A-v0jBQpKeMphD0CEgxBjK-72AC?usp=sharing), unzip and move it to `./data`
 
 | Dataset     | Nodes   | Edges    | Avg. doc length | Attributes | Anomalies |
 |-------------|---------|----------|-----------------|------------|-----------|
