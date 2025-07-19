@@ -1,6 +1,6 @@
 # Text-Attributed Graph Anomaly Detection via Multi-Scale Cross- and Uni-Modal Contrastive Learning
 
-<img src="https://github.com/yimingxu24/CMUCL/blob/main/pipeline.svg" width="60%">
+<img src="https://github.com/yimingxu24/CMUCL/blob/main/pipeline.svg" width="100%">
 
 ## 0. Python environment setup with Conda
 
