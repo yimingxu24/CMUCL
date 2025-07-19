@@ -1,4 +1,4 @@
-# Text-Attributed Graphs Anomaly Detection via Cross-Modal and Uni-Modal Multi-scale Contrastive Learning
+# Text-Attributed Graph Anomaly Detection via Multi-Scale Cross- and Uni-Modal Contrastive Learning
 
 <img src="https://github.com/yimingxu24/CMUCL/blob/main/pipeline.svg" width="60%">
 
